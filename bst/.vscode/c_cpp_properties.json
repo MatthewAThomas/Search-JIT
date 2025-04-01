@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/matthew-thomas/Projects/llvm-project/build-llvm-clang-debug/install/include"
+            ],
+            "defines": [],
+            "compilerPath": "/home/matthew-thomas/Projects/llvm-project/build-llvm-clang-debug/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}

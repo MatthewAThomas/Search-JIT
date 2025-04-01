@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "bst_data.h": "c",
+        "core.h": "c"
+    }
+}
