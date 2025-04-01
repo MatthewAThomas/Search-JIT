@@ -6,4 +6,4 @@ Currently, only basic BST search algorithms are being explored, though other typ
 
 
 ## bst
-The binary search tree directory contains 1) a rudimentary implementation of a binary search tree (bst/bst-data), and 2) a "JITed" version of a binary search tree (bst/bst-ir). The afformentioned article explains what it means to JIT a BST, and why one might want to do so.   
+The binary search tree directory contains 1) a rudimentary implementation of a binary search tree (bst/bst-data), and 2) a "JITed" version of a binary search tree (bst/bst-ir). The aformentioned article explains what it means to JIT a BST, and why one might want to do so.   
