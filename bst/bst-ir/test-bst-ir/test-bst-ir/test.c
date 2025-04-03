@@ -58,12 +58,52 @@ void test_append_2_node_1(void) {
     bi.insert(&sa, 1);
     bi.print(&sa, (char *) "second.bc");
 
+    bi.has_val(&sa, 2);
+
     bi.insert(&sa, -1);
     bi.print(&sa, (char *) "third.bc");
 
     bi.clean_up(&sa);
 
     printf("\n");
+}
+
+void test_append_arb_node_1(void) {
+    bst_ir bi = init_bst_ir();
+    search_attr sa = bi.init_tree(0);
+
+    // bi.insert(&sa, 1);
+    // bi.has_val(&sa, 2);
+    // bi.has_val(&sa, 3);
+    // printf("1\n");
+    // bi.insert(&sa, 0);
+    // bi.has_val(&sa, 3);
+    // printf("2\n");
+    // bi.insert(&sa, 5);
+    // bi.has_val(&sa, 4);
+    // printf("3\n");
+    // bi.insert(&sa, 8);
+    // bi.has_val(&sa, 1);
+    // printf("4\n");
+    // bi.insert(&sa, 2);
+    // bi.has_val(&sa, 4);
+
+    // bi.insert(&sa, 1);
+    // bi.insert(&sa, 2);
+    // bi.insert(&sa, 3);
+    // bi.insert(&sa, 4);
+    // bi.has_val(&sa, 0);
+    // bi.insert(&sa, 5);
+
+    bi.has_val(&sa, 0);
+    bi.insert(&sa, 1);
+    bi.insert(&sa, 2);
+    bi.insert(&sa, 3);
+    bi.insert(&sa, 4);
+    bi.insert(&sa, 5);
+
+
+    bi.clean_up(&sa);
 }
 
 #define GET_NUM(S, SIZE, VAL) \
@@ -105,7 +145,8 @@ int main(int argc, char **argv) {
     // test_1_node();
     //test_append_1_node_1();
     // test_append_2_node_1();
-    test_has_val_1();
+    // test_has_val_1();
+    test_append_arb_node_1();
     
     return 0;
 }
