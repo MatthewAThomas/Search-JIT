@@ -17,7 +17,7 @@ void test_1_node(void) {
     
     bst_ir bi = init_bst_ir();
     search_attr sa = bi.init_tree(0);
-    bi.print(&sa);
+    bi.print(&sa, (char *) "has_val.bc");
 
     for (int32_t val = -1; val < 2; val++) {
         printf("has_val(%d) := %d\n", val, bi.has_val(&sa, val));
@@ -29,11 +29,11 @@ void test_1_node(void) {
 }
 
 void test_append_1_node_1(void) {
-    printf("Running test: test append 1 node (1)");
+    printf("Running test: test append 1 node (1)\n");
 
     bst_ir bi = init_bst_ir();
     search_attr sa = bi.init_tree(0);
-    bi.print(&sa);
+    bi.print(&sa, (char *) "first.bc");
 
     int32_t val;
     printf("Enter number to be inserted\n");
@@ -41,19 +41,71 @@ void test_append_1_node_1(void) {
 
     bi.insert(&sa, val);
 
-    bi.print(&sa);
+    bi.print(&sa, (char *) "second.bc");
 
     bi.clean_up(&sa);
 
     printf("\n");
 }
 
-void test_append_2_node_1(void) {};
+void test_append_2_node_1(void) {
+    printf("Running test: test append 2 node (1)\n");
+
+    bst_ir bi = init_bst_ir();
+    search_attr sa = bi.init_tree(0);
+    bi.print(&sa, (char *) "first.bc");
+
+    bi.insert(&sa, 1);
+    bi.print(&sa, (char *) "second.bc");
+
+    bi.insert(&sa, -1);
+    bi.print(&sa, (char *) "third.bc");
+
+    bi.clean_up(&sa);
+
+    printf("\n");
+}
+
+#define GET_NUM(S, SIZE, VAL) \
+    ((fgets(S, SIZE, stdin) != NULL) && (S[0] != '\n') \
+    && (sscanf(S, "%d", &VAL)))
+
+void test_has_val_1(void) {
+    printf("Running test: test has_val (1)\n");
+
+    bst_ir bi = init_bst_ir();
+
+    int32_t val;
+    printf("Enter number for initial tree node\n");
+    scanf("%d", &val);
+    while (getchar() != '\n'); // clear input buffer
+    search_attr sa = bi.init_tree(val);
+    bi.print(&sa, (char *) "has_val.bc");
+
+    char number[10];
+    printf("Enter number to insert\n");
+    for (int i = 1; (i < 100) && GET_NUM(number, 10, val); i++) {
+        bi.insert(&sa, val);
+        bi.print(&sa, (char *) "has_val.bc");
+        
+        printf("Enter number to see if tree contains it:");
+        while (GET_NUM(number, 10, val)) {
+            printf("has_val(%d) := %d\n", val, bi.has_val(&sa, val));
+            printf("Enter number to see if tree contains it:\n");
+        }
+        
+        printf("Enter number to insert\n");
+    }
+
+    bi.clean_up(&sa);
+    printf("\n");
+}
 
 int main(int argc, char **argv) {
     // test_1_node();
-
-    test_append_1_node_1();
+    //test_append_1_node_1();
+    // test_append_2_node_1();
+    test_has_val_1();
     
     return 0;
 }

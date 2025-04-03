@@ -14,4 +14,4 @@ test.o: test.c
 
 
 clean:
-	rm -rf test bst_ir.o bst_ir.bc bst_ir.ll test.o has_val.bc has_val.ll
+	rm -rf test *.o *.bc *.ll

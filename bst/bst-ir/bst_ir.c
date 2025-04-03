@@ -67,8 +67,8 @@ static void create_engine(search_attr *sa) {
 
 /*--------------------------------Printing-----------------------------------*/
 
-static void output_bc(search_attr *sa) {
-    if (LLVMWriteBitcodeToFile(sa -> mod, "has_val.bc") != 0) {
+static void output_bc(search_attr *sa, char *file_name) {
+    if (LLVMWriteBitcodeToFile(sa -> mod, file_name) != 0) {
         fprintf(stderr, "error writing bitcode to file, skipping\n");
     }
 }
@@ -191,13 +191,13 @@ static LLVMBasicBlockRef get_end_node(search_attr *sa, int32_t val) {
         
         if (is_DIFF_node(label)) {
             if (val < label_val) {
-                if (!strcmp(llabel, "FALSE"))
-                    return bb;
-                bb = llabel_blk;
-            } else {
                 if (!strcmp(rlabel, "FALSE"))
                     return bb;
                 bb = rlabel_blk;
+            } else {
+                if (!strcmp(llabel, "FALSE"))
+                    return bb;
+                bb = llabel_blk;
             }
         } else { // is EQ node
             if (!strcmp(llabel, "TRUE")) {
@@ -258,11 +258,11 @@ static void append_to_end_node(search_attr *sa, int32_t val, LLVMBasicBlockRef l
     LLVMPositionBuilderAtEnd(sa -> builder, ln);
 
     if (val > label_val) {
-        assert(!strcmp(rlabel, "FALSE"));
+        assert(!strcmp(llabel, "FALSE"));
 
         LLVMBuildCondBr(sa -> builder, pred, NEW_EQ, rlabel_blk);
     } else {
-        assert(!strcmp(llabel, "FALSE"));
+        assert(!strcmp(rlabel, "FALSE"));
 
         LLVMBuildCondBr(sa -> builder, pred, llabel_blk, NEW_EQ);
     }
@@ -306,8 +306,8 @@ static bool has_val (search_attr *sa, int32_t val) {
     return has_val(val);
 }
 
-static void print(search_attr *sa) {
-    output_bc(sa);
+static void print(search_attr *sa, char *file_name) {
+    output_bc(sa, file_name);
 }
 
 bst_ir init_bst_ir(void) {
