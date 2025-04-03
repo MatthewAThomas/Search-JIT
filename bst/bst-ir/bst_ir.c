@@ -175,8 +175,8 @@ static LLVMBasicBlockRef get_end_node(search_attr *sa, int32_t val) {
     LLVMBasicBlockRef bb = LLVMGetEntryBasicBlock(sa -> has_val);
 
     LLVMValueRef cmp = LLVMGetLastInstruction(bb);
-    LLVMBasicBlockRef llabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 1));
-    LLVMBasicBlockRef rlabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 2));
+    LLVMBasicBlockRef llabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 2));
+    LLVMBasicBlockRef rlabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 1));
     char *llabel = (char *) LLVMGetBasicBlockName(llabel_blk);
     char *rlabel = (char *) LLVMGetBasicBlockName(rlabel_blk);
 
@@ -208,8 +208,8 @@ static LLVMBasicBlockRef get_end_node(search_attr *sa, int32_t val) {
         }
 
         cmp = LLVMGetLastInstruction(bb);
-        llabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 1));
-        rlabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 2));
+        llabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 2));
+        rlabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 1));
         llabel = (char *) LLVMGetBasicBlockName(llabel_blk);
         rlabel = (char *) LLVMGetBasicBlockName(rlabel_blk);
     }
@@ -246,8 +246,8 @@ static void append_to_end_node(search_attr *sa, int32_t val, LLVMBasicBlockRef l
 
     LLVMValueRef cmp = LLVMGetLastInstruction(ln);
     LLVMValueRef pred = LLVMGetOperand(cmp, 0);
-    LLVMBasicBlockRef llabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 1));
-    LLVMBasicBlockRef rlabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 2));
+    LLVMBasicBlockRef llabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 2));
+    LLVMBasicBlockRef rlabel_blk = LLVMValueAsBasicBlock(LLVMGetOperand(cmp, 1));
     char *llabel = (char *) LLVMGetBasicBlockName(llabel_blk);
     char *rlabel = (char *) LLVMGetBasicBlockName(rlabel_blk);
 
