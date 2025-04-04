@@ -145,6 +145,8 @@ void test_append_arb_node_1(void) {
 void test_has_val_2(void) {
     printf("Running test: test has_val (1)\n");
 
+    #define max_num_str_len 13
+
     bst_ir bi = init_bst_ir();
 
     int32_t val;
@@ -154,16 +156,16 @@ void test_has_val_2(void) {
     search_attr sa = bi.init_tree(val);
     bi.print(&sa, (char *) "has_val.bc");
 
-    char number[10];
+    char number[max_num_str_len];
     printf("Enter number to insert\n");
-    for (int i = 1; (i < 100) && GET_NUM(number, 10, val); i++) {
+    for (int i = 1; (i < 100) && GET_NUM(number, max_num_str_len, val); i++) {
         bi.insert(&sa, val);
         bi.print(&sa, (char *) "has_val.bc");
         printf("Enter number to insert\n");
     }
 
     printf("Enter number to see if tree contains it:");
-    while (GET_NUM(number, 10, val)) {
+    while (GET_NUM(number, max_num_str_len, val)) {
         printf("has_val(%d) := %d\n", val, bi.has_val(&sa, val));
         printf("Enter number to see if tree contains it:\n");
     }

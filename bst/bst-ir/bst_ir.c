@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <assert.h>
+#include <ctype.h>
 
 #include "bst_ir.h"
 
@@ -81,8 +82,9 @@ static void output_bc(search_attr *sa, char *file_name) {
 #define EQUAL_CMP_PREFIX "equal"
 #define INEQ_CMP_PREFIX "ineq"
 
-#define MAX_NUM_STRING_LEN 11 // number of digits of longest 32-bit number, is decimal, including a minus sign
-#define MAX_LABEL_PREFIX_LEN 7
+#define MAX_NUM_STRING_LEN 12 // number of digits of longest 32-bit number in decimal (10), 
+                              // including a minus sign (+1), and null terminator (+1)
+#define MAX_LABEL_PREFIX_LEN 5 // longest label prefix is 'equal' - length 5
 
 static char *create_label(char type, int32_t val) {
     char *label = (char *) malloc(MAX_LABEL_PREFIX_LEN + MAX_NUM_STRING_LEN);
@@ -167,7 +169,25 @@ static bool is_leaf_node(char *llabel, char *rlabel, char *label) {
 
 static int get_label_val(const char *label) {
     int len = strlen(label);
-    return atoi(label + len - 1);
+    char num[MAX_NUM_STRING_LEN];
+    int idx = MAX_NUM_STRING_LEN - 1;
+
+    for (int i = len - 1; i >= 0; i--) {
+        char d = label[i];
+        if (isalpha(d))
+            break;
+        
+        num[idx--] = d;
+    }
+
+    // should have read at least 1 digit
+    assert(idx < MAX_NUM_STRING_LEN - 1);
+
+    // number should not be larger than max int32 (by magnitude)
+    assert(idx >= 0);
+
+    int32_t val = atoi(&num[idx + 1]);
+    return val;
 }
 
 // returns NULL if val already is a key in the tree
