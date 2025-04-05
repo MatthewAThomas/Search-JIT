@@ -1,5 +1,5 @@
 CC=clang
-FLAGS= -std=c99 # -g
+FLAGS= -std=c99 -g
 
 all:test
 

@@ -15,10 +15,14 @@
 
 #include "bst_ir.h"
 
+// #define DEBUG_BST_IR
+
 static search_attr create_module(void) {
     search_attr sa;
 
+    #ifdef DEBUG_BST_IR
     printf("Creating module\n");
+    #endif
 
     sa.mod = LLVMModuleCreateWithName("search_module");
     sa.val = LLVMInt32Type();
@@ -27,7 +31,9 @@ static search_attr create_module(void) {
 
     sa.builder = LLVMCreateBuilder();
 
+    #ifdef DEBUG_BST_IR
     printf("Created module\n");
+    #endif
 
     return sa;
 }
@@ -37,7 +43,9 @@ static void verify_module(search_attr *sa) {
     LLVMVerifyModule(sa -> mod, LLVMAbortProcessAction, &error);
     LLVMDisposeMessage(error);
 
+    #ifdef DEBUG_BST_IR
     printf("Verified module\n");
+    #endif
 }
 
 static void create_engine(search_attr *sa) {
@@ -48,7 +56,9 @@ static void create_engine(search_attr *sa) {
     LLVMInitializeNativeTarget();
     LLVMInitializeNativeAsmPrinter();
 
+    #ifdef DEBUG_BST_IR
     printf("Initialized JIT\n");
+    #endif
 
     if (LLVMCreateExecutionEngineForModule(&engine, sa -> mod, &error) != 0) {
         fprintf(stderr, "failed to create execution engine\n");
@@ -60,7 +70,9 @@ static void create_engine(search_attr *sa) {
         exit(EXIT_FAILURE);
     }
 
+    #ifdef DEBUG_BST_IR
     printf("JIT created without errors\n");
+    #endif
 
     sa -> engine = engine;
 }
@@ -321,7 +333,9 @@ static search_attr init_tree (int32_t val) {
 }
 
 static bool has_val (search_attr *sa, int32_t val) {
+    #ifdef DEBUG_BST_IR
     printf("Running has_val\n");
+    #endif
     bool (*has_val)(int) = (bool (*)(int)) LLVMGetFunctionAddress(sa -> engine, "has_val");
     return has_val(val);
 }

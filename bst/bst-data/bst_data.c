@@ -51,15 +51,15 @@ static bool insert(node *head, int32_t val) {
     }
 }
 
-bool has_val(node *head, int32_t val) {
+static bool has_val(node *head, int32_t val) {
     while (head != NULL) {
         if (val < head -> val)
             head = head -> left;
         
-        if (val > head -> val)
+        else if (val > head -> val)
             head = head -> right;
         
-        if (val == head -> val)
+        else
             return true;
     }
     return false;
@@ -78,7 +78,7 @@ static void print_helper(node *head, int offset) {
     print_helper(head ->  right, offset + 1);
 }
 
-void print(node *head) {
+static void print(node *head) {
     print_helper(head, 0);
 }
 

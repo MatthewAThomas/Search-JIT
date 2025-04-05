@@ -3,7 +3,7 @@ import argparse
 
 def cmdline():
     parser = argparse.ArgumentParser()
-    parser.add_argument("n", help="number of elements to insert into tree", type=int)
+    parser.add_argument("n", help="number of values to query", type=int)
     args = parser.parse_args()
     return args.n
 
@@ -12,11 +12,11 @@ def generate(n):
     max_int32 = 2147483647
     data = [random.randint(min_int32, max_int32) for _ in range(n)]
 
-    f = open("data.c", 'w')
+    f = open("queries.c", 'w')
 
-    txt = "#include <stdint.h>\n#include \"data.h\"\n\n"
-    txt += f"int NUM_INSERTIONS = {n};\n\n"
-    txt += "int32_t vals[] = {\n"    
+    txt = "#include <stdint.h>\n#include \"queries.h\"\n\n"
+    txt += f"int NUM_QUERIES = {n};\n\n"
+    txt += "int32_t queries[] = {\n"    
 
     line_width = 10
     for i in range((n + line_width - 1) // line_width):

@@ -72,6 +72,21 @@ void more_children_2(bst_data b) {
     b.insert(head, 2);
     b.insert(head, 1);
 
+
+    b.has_val(head, -1);
+    
+    printf("has_val(%d) := %d\n", -1,b.has_val(head, -1));
+    printf("has_val(%d) := %d\n", 0,b.has_val(head, 0));
+    printf("has_val(%d) := %d\n", 1,b.has_val(head, 1));
+    printf("has_val(%d) := %d\n", 2,b.has_val(head, 2));
+    printf("has_val(%d) := %d\n", 3,b.has_val(head, 3));
+    printf("has_val(%d) := %d\n", 4,b.has_val(head, 4));
+    printf("has_val(%d) := %d\n", 5,b.has_val(head, 5));
+    printf("has_val(%d) := %d\n", 6,b.has_val(head, 6));
+    printf("has_val(%d) := %d\n", 7,b.has_val(head, 7));
+    printf("has_val(%d) := %d\n", 8,b.has_val(head, 8));
+    printf("has_val(%d) := %d\n", 9,b.has_val(head, 9));
+
     b.print(head);
 
     printf("\n");
