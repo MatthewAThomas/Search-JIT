@@ -332,12 +332,20 @@ static search_attr init_tree (int32_t val) {
     return sa;
 }
 
-static bool has_val (search_attr *sa, int32_t val) {
+// static bool has_val (search_attr *sa, int32_t val) {
+//     #ifdef DEBUG_BST_IR
+//     printf("Running has_val\n");
+//     #endif
+//     bool (*has_val)(int) = (bool (*)(int)) LLVMGetFunctionAddress(sa -> engine, "has_val");
+//     return has_val(val);
+// }
+
+static bool (*get_has_val(search_attr *sa)) (int32_t) {
     #ifdef DEBUG_BST_IR
-    printf("Running has_val\n");
+    printf("Getting has_val\n");
     #endif
     bool (*has_val)(int) = (bool (*)(int)) LLVMGetFunctionAddress(sa -> engine, "has_val");
-    return has_val(val);
+    return has_val;
 }
 
 static void print(search_attr *sa, char *file_name) {
@@ -348,7 +356,7 @@ bst_ir init_bst_ir(void) {
     bst_ir bi = {
         .init_tree = init_tree,
         .insert = insert,
-        .has_val = has_val,
+        .get_has_val = get_has_val,
         .clean_up = clean_up,
         .print = print
     };

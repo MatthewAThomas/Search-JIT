@@ -53,14 +53,14 @@ static bool insert(node *head, int32_t val) {
 
 static bool has_val(node *head, int32_t val) {
     while (head != NULL) {
+        if (val == head -> val)
+            return true;
+        
         if (val < head -> val)
             head = head -> left;
         
         else if (val > head -> val)
             head = head -> right;
-        
-        else
-            return true;
     }
     return false;
 }

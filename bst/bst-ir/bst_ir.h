@@ -33,7 +33,8 @@ typedef struct bst_ir {
 
     search_attr (*init_tree) (int32_t);
     void (*insert) (search_attr *, int32_t);
-    bool (*has_val) (search_attr *, int32_t);
+    // bool (*has_val) (search_attr *, int32_t);
+    bool (* (*get_has_val) (search_attr *)) (int32_t);
     void (*clean_up) (search_attr *);
     void (*print) (search_attr *, char *);
 

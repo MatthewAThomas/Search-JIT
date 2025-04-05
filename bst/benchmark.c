@@ -15,6 +15,7 @@ typedef struct {
 typedef struct {
     bst_ir bi;
     search_attr sa;
+    bool (*has_val) (int32_t);
 } bst_ir_bundle;
 
 typedef struct  {
@@ -53,11 +54,13 @@ static bst_ir_bundle insert_bst_ir(int n) {
         bi.insert(&sa, vals[i]);
     }
 
+    bool (*has_val) (int32_t) = bi.get_has_val(&sa);
+
     clock_t end = clock();
     double duration = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%d elements inserted into JITed bst in %f seconds\n", n, duration);
 
-    bst_ir_bundle bst_irb = {.bi = bi, .sa = sa};
+    bst_ir_bundle bst_irb = {.bi = bi, .sa = sa, .has_val = has_val};
     return bst_irb;
 }
 
@@ -91,10 +94,9 @@ void query_bst_data(int n, bst_data_bundle *db, bool *check_array) {
 void query_bst_ir(int n, bst_ir_bundle *irb, bool *check_array) {
     clock_t begin = clock();
     
-    bool (*has_val) (search_attr *, int32_t) = (irb -> bi).has_val;
     search_attr sa = (irb -> sa);
     for (int i = 0; i < n; i++) {
-        check_array[i] = has_val(&sa, queries[i]);
+        check_array[i] = irb -> has_val(queries[i]);
     }
 
     clock_t end = clock();
