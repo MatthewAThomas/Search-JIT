@@ -8,7 +8,7 @@
 static node *create_node(int32_t val) {
     node *new_node;
 
-    if ((new_node = malloc(sizeof(node))) == NULL)
+    if ((new_node = (node *) malloc(sizeof(node))) == NULL)
         return NULL;
 
     new_node -> val = val;
