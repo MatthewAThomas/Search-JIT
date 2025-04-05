@@ -1,6 +1,6 @@
 CC=clang++
 #COMPILER_FLAGS= -std=c++11 -g
-COMPILER_FLAGS = -std=c++11 -g `llvm-config --cflags`
+COMPILER_FLAGS = -std=c++11 `llvm-config --cflags` #-g
 LINKER_FLAGS = `llvm-config --cxxflags --ldflags --libs core executionengine mcjit interpreter analysis native bitwriter --system-libs`
 
 all:benchmark

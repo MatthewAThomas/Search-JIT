@@ -3,3 +3,5 @@
 *.ll
 *.bc
 documentation/*
+bst/benchmark-utils/data.c
+bst/benchmark-utils/queries.c
